@@ -13,13 +13,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private IUserRepository userRepository;
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public ResponseEntity create(@RequestBody UserModel userModel) {
 
        var user = this.userRepository.findByUsername(userModel.getUsername());
@@ -36,14 +36,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity findAllUsers() {
         var users = this.userRepository.findAll();
         System.out.println(users);
         return  ResponseEntity.status(200).body(users);
     }
 
-    @GetMapping("user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity findOneUser(@PathVariable UUID id) {
       UserModel user = this.userRepository.findById(id).orElse(null);
         if (user != null) {
