@@ -1,14 +1,14 @@
 FROM ubuntu:latest AS build
 
 RUN apt-get update && \
-    apt-get install -y openjdk-22-jdk
+    apt-get install -y openjdk-17-jdk
 
 COPY . .
 
 RUN apt-get install -y maven && \
     mvn clean install
 
-FROM openjdk:22-jdk-slim
+FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
